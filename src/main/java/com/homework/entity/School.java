@@ -11,6 +11,7 @@ public class School {
     private Set<Subject> subjects;
     private Student student;
 
+
     @Embedded
     private Modification modification;
 
@@ -58,4 +59,6 @@ public class School {
     public void setStudent(Student student) {
         this.student = student;
     }
+
+
 }

@@ -24,6 +24,7 @@ public class Student implements Serializable {
 
     private List<Subject> subjects = new ArrayList<>();
 
+
     @Embedded
     private Modification modification;
 
@@ -79,4 +80,7 @@ public class Student implements Serializable {
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
+
+
+
 }

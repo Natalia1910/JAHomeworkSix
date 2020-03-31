@@ -1,61 +1,31 @@
 package com.homework.service;
 
-import com.homework.config.SessionUtil;
+import com.homework.dao.impl.StudentDaoImpl;
 import com.homework.entity.Student;
-import com.homework.dao.DAO;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class StudentService extends SessionUtil implements DAO<Student> {
+public class StudentService {
 
-    @Override
-    public void add(Student student) {
-        openTransactionSession();
-        Session session = getSession();
-        session.save(student);
-        closeTransactionSession();
+    StudentDaoImpl studentDao = new StudentDaoImpl();
 
+    public Student findStudent(int id) {
+        return studentDao.findById(id);
     }
 
-    @Override
-    public List<Student> findAll() {
-        openTransactionSession();
-        String sql = "SELECT * FROM student";
-        Session session = getSession();
-        Query query = session.createNativeQuery(sql).addEntity(Student.class);
-        List<Student> studentList = query.list();
-        closeTransactionSession();
-        return studentList;
+    public void saveStudent(Student student) {
+        studentDao.save(student);
     }
 
-    @Override
-    public void delete(int id) {
-        openTransactionSession();
-        Session session = getSession();
-        session.remove(id);
-        closeTransactionSession();
+    public void deleteStudent(Student student) {
+        studentDao.delete(student);
     }
 
-    @Override
-    public Student getByID(int id) {
-        openTransactionSession();
-        String sql = "SELECT * FROM student WHERE student_id = ?";
-        Session session = getSession();
-        Query query = session.createNativeQuery(sql).addEntity(Student.class);
-        query.setParameter("student_id", id);
-        Student student = (Student) query.getSingleResult();
-
-        closeTransactionSession();
-        return student;
+    public void updateStudent(Student student) {
+        studentDao.updateT(student);
     }
 
-    @Override
-    public void update(Student student) {
-        openTransactionSession();
-        Session session = getSession();
-        session.update(student);
-        closeTransactionSession();
+    public List<Student> findAllStudents() {
+        return studentDao.findAll();
     }
 }
